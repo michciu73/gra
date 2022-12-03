@@ -1,16 +1,14 @@
 from random import randint, random;
 import copy
 #------------------------------------Bohater
-Name = input("podaj imię swojego bohatera   ")
+Name = input("Podaj imię swojego bohatera   ")
 #0--imię  1--max_hp  2--hp  3--pd  4--poziom  5--coiny
 Max_hp = 100
 Hp = copy.copy(Max_hp)
-    
-Bohater = [Name,Max_hp,Hp,0,1,1000]
 
+Bohater = [Name,Max_hp,Hp,0,1,1000]
 Bohater[2] <= Bohater[1]
-if Bohater[1] < Bohater[2]:
-    
+
 #------------------------------------Poziom
 #def Poziom():
 
@@ -21,6 +19,10 @@ Mała_potka = 'Mała potka'
 Średnia_potka = 'Średnia potka'
 Duża_potka = 'Duża potka'
 
+Przedmioty = []
+
+if Zbroja in Przedmioty:
+    Bohater[1] += 35
 #-------------------------------------Sklep
 def Sklep():
     print('Witaj w sklepie. Co chciałbyś kupić?    ')
@@ -81,12 +83,6 @@ def Sklep():
         print('nie - Wyjście')
         print('Czy chcesz kupić coś jeszcze?')
 
-#------------------------------------Przedmioty_1
-Przedmioty = []
-
-for Zbroja in Przedmioty:
-    Bohater[1] += 35
-
 #------------------------------------Uplepszenia
 #def Ubgrade():
     
@@ -95,14 +91,17 @@ def Zwykły_atak():
     return randint(0,5)
 
 def Mocny_atak():
-    if Miecz in Przedmioty:
-        return Zwykły_atak()*2
-    
+    return Zwykły_atak()*2
+
 #------------------------------------Leczenie
 def leczenie_1():
     if Mała_potka in Przedmioty:
         Bohater[2] += 15
         print('Odzyskałeś 15 Hp\n')
+        if Bohater[2] > Bohater[1]:
+            rest = Bohater[1] - Bohater[2]
+            Bohater[2] += rest
+            print(f'Masz teraz {Bohater[2]} Hp')
         if wybierz_leczenie == '1':
             Przedmioty.remove(Mała_potka)
     else:
@@ -112,6 +111,10 @@ def leczenie_2():
     if Średnia_potka in Przedmioty:
         Bohater[2] += 30
         print('Odzyskałeś 30 Hp\n')
+        if Bohater[2] > Bohater[1]:
+            rest1 = Bohater[1] - Bohater[2]
+            Bohater[2] += rest1
+            print(f'Masz teraz {Bohater[2]} Hp')
         if wybierz_leczenie == '2':
             Przedmioty.remove(Średnia_potka)
     else:
@@ -121,6 +124,10 @@ def leczenie_3():
     if Duża_potka in Przedmioty:
         Bohater[2] += 100
         print('Odzyskałeś 100 Hp\n')
+        if Bohater[2] > Bohater[1]:
+            rest2 = Bohater[1] - Bohater[2]
+            Bohater[2] += rest2
+            print(f'Masz teraz {Bohater[2]} Hp')
         if wybierz_leczenie == '3':
             Przedmioty.remove(Duża_potka)
     else:
@@ -134,7 +141,7 @@ def Wybierz_leczenie():
     wybierz_leczenie = input()
     if wybierz_leczenie == '1':
         print('-'*50)
-        return leczenie_1() 
+        return leczenie_1()
     elif wybierz_leczenie == '2':
         print('-'*50)
         return leczenie_2()
@@ -143,7 +150,7 @@ def Wybierz_leczenie():
         return leczenie_3()
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny
-list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(0,5),randint(0,10)]
+list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(1,5),randint(0,10)]
 def Przeciwnik():
     global przeciwnik
     przeciwnik = list_Przeciwnik.copy()
@@ -154,6 +161,7 @@ input('Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
 while Bohater[2] >= 0:
+    Bohater[1] >= Bohater[2]
     print('-'*50)
     print(f'Twoje przedmioty:   {Przedmioty}')
     print(f'Twoje statystyki:    {Bohater}')
@@ -195,7 +203,7 @@ while Bohater[2] >= 0:
 Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
                         print('!'*50)
-                    else:
+                    if Miecz in Przedmioty:
                         atak_1 = Mocny_atak()
                         przeciwnik[1] = przeciwnik[1] - atak_1
                         print('-'*50)
@@ -203,7 +211,6 @@ Potrzebujesz 'Miecz' żeby użyć!""")
                         print('-'*50)
             elif inp1 == '2':
                 Wybierz_leczenie()
-                print(Bohater[2])
         if inp1 == 'stop':
             break
         if przeciwnik[1] <= 0:
@@ -219,6 +226,7 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Sklep()
         #if inp2 == '2':
             #Ubgrade()
+    
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
