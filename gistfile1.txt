@@ -5,7 +5,10 @@ Name = input("podaj imię swojego bohatera   ")
 #0--imię  1--max_hp  2--hp  3--pd  4--poziom  5--coiny
 Max_hp = 100
 Hp = copy.copy(Max_hp)
+
 Bohater = [Name,Max_hp,Hp,0,1,0]
+#while Max_hp >= Bohater[2]:
+    
 #------------------------------------przedmioty
 Miecz = 'Miecz'
 Zbroja = 'Zbroja'
@@ -77,7 +80,7 @@ def Sklep():
 #------------------------------------Przedmioty_1
 Przedmioty = []
 
-if Zbroja in Przedmioty:
+for Zbroja in Przedmioty:
     Bohater[1] += 20
 
 #------------------------------------Uplepszenia
@@ -152,9 +155,10 @@ def Wybierz_leczenie():
         return leczenie_3()
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny
-list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(1,5),randint(0,10)]
+list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(0,5),randint(0,10)]
 def Przeciwnik():
-    przeciwnik = list_Przeciwnik
+    global przeciwnik
+    przeciwnik = list_Przeciwnik.copy()
     return przeciwnik
 #------------------------------------Rozgrywka
 
@@ -199,7 +203,7 @@ while Bohater[2] >= 0:
         if przeciwnik[1] <= 0:
             print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
             print(f"Dostałeś {przeciwnik[3]} coinów")
-            Bohater[5] += przeciwnik[3]
+            Bohater[5] += przeciwnik[(3)]
     if inp == '2':
         print('-'*50)
         print('1 - Kupić')
@@ -207,7 +211,7 @@ while Bohater[2] >= 0:
         inp2 = input('Co chcesz zrobić?    \n')
         if inp2 == '1':
             Sklep()
-        #if inp2 == 'ulepszyć':
+        #if inp2 == '2':
             #Ubgrade()
 
 print("="*50)
