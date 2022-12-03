@@ -151,8 +151,8 @@ def Przeciwnik():
     przeciwnik = list_Przeciwnik.copy()
     return przeciwnik
 #------------------------------------Rozgrywka
+
 print(Name)
-print('Jeśli chcesz skończyć grę wpisz "stop"')
 input('Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
@@ -178,6 +178,8 @@ while Bohater[2] >= 0:
             print('1 - atak')
             print('2 - uleczyć')
             inp1 = input('Co chcesz zrobić?    ')
+            if inp1 == 'stop':
+                break
             if inp1 == '1':
                 atak = Wybierz_atak()
                 przeciwnik[1] = przeciwnik[1] - atak
