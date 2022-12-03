@@ -72,11 +72,17 @@ def Sklep():
         print(f'Twoje przedmioty:    {Przedmioty}')
         print('nie - Wyjście')
         print('Czy chcesz kupić coś jeszcze?')
+
+
 #------------------------------------Przedmioty_1
 Przedmioty = []
 
 if Zbroja in Przedmioty:
     Bohater[1] += 20
+
+#------------------------------------Uplepszenia
+#def Ubgrade():
+    
 #------------------------------------Atak
 def Zwykły_atak():
     return randint(0,5)
@@ -148,7 +154,7 @@ def Wybierz_leczenie():
 #0--nazwa  1--Hp  2--atak  3--coiny
 list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(1,5),randint(0,10)]
 def Przeciwnik():
-    przeciwnik = list_Przeciwnik.copy()
+    przeciwnik = list_Przeciwnik
     return przeciwnik
 #------------------------------------Rozgrywka
 
@@ -158,13 +164,14 @@ print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
 while Bohater[2] >= 0:
     print('-'*50)
-    print('wpisz "nie" aby skożystać ze sklepu')
     print(f'Twoje przedmioty:   {Przedmioty}')
-    print(f'Twoje statystyki    {Bohater}')
-    inp = input('Czy chcesz kontynułować podróż?   ')
+    print(f'Twoje statystyki:    {Bohater}')
+    print('1 - walka')
+    print('2 - sklep')
+    inp = input('Gdzie chcesz iść?   ')
     if inp == 'stop':
         break
-    if inp != 'nie':
+    if inp == '1':
         przeciwnik = Przeciwnik()
         print("-"*50)
         while przeciwnik[1] >= 0:
@@ -193,12 +200,15 @@ while Bohater[2] >= 0:
             print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
             print(f"Dostałeś {przeciwnik[3]} coinów")
             Bohater[5] += przeciwnik[3]
-    if inp == 'nie':
+    if inp == '2':
         print('-'*50)
-        print('1 - Sklep')
+        print('1 - Kupić')
+        print('2 - Ulepszyć')
         inp2 = input('Co chcesz zrobić?    \n')
         if inp2 == '1':
             Sklep()
+        #if inp2 == 'ulepszyć':
+            #Ubgrade()
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
