@@ -27,8 +27,8 @@ if Zbroja in Przedmioty:
 def Sklep():
     print('Witaj w sklepie. Co chciałbyś kupić?    ')
     print(f'Masz {Bohater[5]} coinów\n')
-    print('1 - Miecz: odblokowuje mocny atak  =  200 coinów')
-    print('2 - Zbroja: +20 Max hp  =  300 coinów')
+    print('1 - Miecz: odblokowuje mocny atak  =  150 coinów')
+    print('2 - Zbroja: +20 Max hp  =  200 coinów')
     print('3 - Mała potka: leczy 10 Hp  =  10 coinów')
     print('4 - Średnia potka: leczy 30 Hp  =  40 coinów')
     print('5 - Duża potka leczy: 100 Hp  =  100 coinów')
@@ -40,19 +40,19 @@ def Sklep():
         if gear == "1":
             if Miecz in Przedmioty:
                     print("Możesz mieć tylko jeden miecz!")
-            elif Bohater[5] >= 200:
+            elif Bohater[5] >= 150:
                 Przedmioty.append(Miecz)
                 print("Kupiłeś miecz!")
-                Bohater[5] -= 200
+                Bohater[5] -= 150
             else:
                 print("Masz za mało coinów!")
         elif gear == '2':
             if Zbroja in Przedmioty:
                 print("Możesz mieć tylko jedną zbroje!")
-            elif Bohater[5] >= 300:
+            elif Bohater[5] >= 200:
                 Przedmioty.append(Zbroja)
                 print("Kupiłeś zbroje!")
-                Bohater[5] -= 300
+                Bohater[5] -= 200
             else:
                 print("Masz za mało coinów")
         elif gear == '3':
@@ -150,7 +150,7 @@ def Wybierz_leczenie():
         return leczenie_3()
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny
-list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(1,5),randint(0,10)]
+list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(1,5),randint(0,10)]
 def Przeciwnik():
     global przeciwnik
     przeciwnik = list_Przeciwnik.copy()
@@ -167,7 +167,7 @@ while Bohater[2] >= 0:
     print(f'Twoje statystyki:    {Bohater}')
     print('1 - walka')
     print('2 - sklep')
-    inp = input('Gdzie chcesz iść?   ')
+    inp = input('Co chcesz zrobić?   ')
     if inp == 'stop':
         break
     if inp == '1':
