@@ -6,12 +6,8 @@ Name = input("Podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 
-Bohater = [Name,Max_hp,Hp,0,1,0]
+Bohater = [Name,Max_hp,Hp,540,1,1000]
 Bohater[2] <= Bohater[1]
-
-#------------------------------------Poziom
-#def Poziom():
-
 #------------------------------------przedmioty
 Miecz = 'Miecz'
 Zbroja = 'Zbroja'
@@ -149,8 +145,9 @@ def Wybierz_leczenie():
         print('-'*50)
         return leczenie_3()
 #------------------------------------Przeciwnik
-#0--nazwa  1--Hp  2--atak  3--coiny
-list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(1,5),randint(0,10)]
+#0--nazwa  1--Hp  2--atak  3--coiny  4--Pd
+list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(0,5),randint(0,25),randint(1,50)]
+#if Bohater[4] 
 def Przeciwnik():
     global przeciwnik
     przeciwnik = list_Przeciwnik.copy()
@@ -215,8 +212,9 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             break
         if przeciwnik[1] <= 0:
             print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
-            print(f"Dostałeś {przeciwnik[3]} coinów")
-            Bohater[5] += przeciwnik[(3)]
+            print(f"Dostałeś {przeciwnik[3]} coinów i {przeciwnik[4]} Pd")
+            Bohater[5] += przeciwnik[3]
+            Bohater[3] += przeciwnik[4]
     if inp == '2':
         print('-'*50)
         print('1 - Kupić')
@@ -226,7 +224,11 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Sklep()
         #if inp2 == '2':
             #Ubgrade()
-    
+    if Bohater[3] >= 500:
+        print('^'*50)
+        inp_1 = input('Gratulecje, awansowałeś nakolejny poziom!!!')
+        Bohater[4] += 1
+        Bohater[3] -= 500
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
