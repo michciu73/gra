@@ -9,6 +9,9 @@ Hp = copy.copy(Max_hp)
 Bohater = [Name,Max_hp,Hp,0,1,0]
 #while Max_hp >= Bohater[2]:
     
+#------------------------------------Poziom
+#def Poziom():
+
 #------------------------------------przedmioty
 Miecz = 'Miecz'
 Zbroja = 'Zbroja'
@@ -89,20 +92,17 @@ for Zbroja in Przedmioty:
 #------------------------------------Atak
 def Zwykły_atak():
     return randint(0,5)
+    
 
 def Mocny_atak():
     if Miecz in Przedmioty:
-        przeciwnik[1] -= Zwykły_atak()*2
-    elif Miecz not in Przedmioty:
+        Zwykły_atak()*2
+    else:
         print('-'*50)
         print("""Nie możesz tego zrobić.
 Potrzebujesz 'Miecz' żeby użyć.""")
 
 def Wybierz_atak():
-    print('1 - wykonaj Zwykły atak')
-    print('2 - wykonaj Mocny atak')
-    global wybierz_atak 
-    wybierz_atak = input()
     if wybierz_atak.title() == '1':
         return Zwykły_atak()
     elif wybierz_atak.title() == '2':
@@ -192,10 +192,19 @@ while Bohater[2] >= 0:
             if inp1 == 'stop':
                 break
             if inp1 == '1':
-                atak = Wybierz_atak()
-                przeciwnik[1] = przeciwnik[1] - atak
-                print(f"Zadałeś {atak} obrażeń")
-                print("-"*50)
+                global wybierz_atak 
+                print('1 - wykonaj Zwykły atak')
+                print('2 - wykonaj Mocny atak')
+                wybierz_atak = input()
+                if wybierz_atak == '1':
+                    atak = Zwykły_atak()
+                    przeciwnik[1] = przeciwnik[1] - atak
+                    print(f"Zadałeś {atak} obrażeń")
+                    print("-"*50)
+                elif wybierz_atak == '2':
+                    Mocny_atak()
+                    print(f"Zadałeś {Mocny_atak()} obrażeń")
+                    print('-'*50)
             elif inp1 == '2':
                 Wybierz_leczenie()
         if inp1 == 'stop':
