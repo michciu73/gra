@@ -153,11 +153,10 @@ def Przeciwnik():
     przeciwnik = list_Przeciwnik.copy()
     return przeciwnik
 #------------------------------------Rozgrywka
-print(Name)
-input('Zaczynasz swoją podróż')
+input(f'\n{Bohater[0]} Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
-while Bohater[2] >= 0:
+while Bohater[2] >= 1:
     Bohater[1] >= Bohater[2]
     print('-'*50)
     print(f'Twoje przedmioty:   {Przedmioty}')
@@ -165,16 +164,18 @@ while Bohater[2] >= 0:
     print('1 - walka')
     print('2 - sklep')
     inp = input('Co chcesz zrobić?   ')
+    if Bohater[2] <= 0:
+        break
     if inp == 'stop':
         break
     if inp == '1':
         przeciwnik = Przeciwnik()
         print("-"*50)
-        while przeciwnik[1] >= 0:
+        while przeciwnik[1] >= 1:
             print(f"{Name} walczysz teraz z {przeciwnik[0]}")
             print(f"Przeciwnik ma {przeciwnik[1]} Hp i zadaje ci {przeciwnik[2]} obrażeń\n")
             Bohater[2] = Bohater[2] - przeciwnik[2]
-            if Bohater[2] <= 0:
+            if Bohater[2] <= 1:
                 break
             print(f"Zostało ci {Bohater[2]} Hp")
             print(f"Twoje przedmioty    {Przedmioty}")
