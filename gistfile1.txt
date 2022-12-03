@@ -5,9 +5,11 @@ Name = input("podaj imię swojego bohatera   ")
 #0--imię  1--max_hp  2--hp  3--pd  4--poziom  5--coiny
 Max_hp = 100
 Hp = copy.copy(Max_hp)
-
+    
 Bohater = [Name,Max_hp,Hp,0,1,1000]
-#while Max_hp >= Bohater[2]:
+
+Bohater[2] <= Bohater[1]
+if Bohater[1] < Bohater[2]:
     
 #------------------------------------Poziom
 #def Poziom():
@@ -23,11 +25,11 @@ Duża_potka = 'Duża potka'
 def Sklep():
     print('Witaj w sklepie. Co chciałbyś kupić?    ')
     print(f'Masz {Bohater[5]} coinów\n')
-    print('1 - Miecz  =  200 coinów')
-    print('2 - Zbroja  =  300 coinów')
-    print('3 - Mała potka -leczy 10 Hp  =  10 coinów')
-    print('4 - Średnia potka -leczy 30 Hp  =  40 coinów')
-    print('5 - Duża potka -leczy 100 Hp  =  100 coinów')
+    print('1 - Miecz: odblokowuje mocny atak  =  200 coinów')
+    print('2 - Zbroja: +20 Max hp  =  300 coinów')
+    print('3 - Mała potka: leczy 10 Hp  =  10 coinów')
+    print('4 - Średnia potka: leczy 30 Hp  =  40 coinów')
+    print('5 - Duża potka leczy: 100 Hp  =  100 coinów')
     print('-'*50)
     print(f'twoje przedmioty {Przedmioty}')
     while True:
@@ -79,12 +81,11 @@ def Sklep():
         print('nie - Wyjście')
         print('Czy chcesz kupić coś jeszcze?')
 
-
 #------------------------------------Przedmioty_1
 Przedmioty = []
 
 for Zbroja in Przedmioty:
-    Bohater[1] += 20
+    Bohater[1] += 35
 
 #------------------------------------Uplepszenia
 #def Ubgrade():
@@ -202,6 +203,7 @@ Potrzebujesz 'Miecz' żeby użyć!""")
                         print('-'*50)
             elif inp1 == '2':
                 Wybierz_leczenie()
+                print(Bohater[2])
         if inp1 == 'stop':
             break
         if przeciwnik[1] <= 0:
