@@ -148,8 +148,8 @@ def Wybierz_leczenie():
 #0--nazwa  1--Hp  2--atak  3--coiny
 list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(1,5),randint(0,10)]
 def Przeciwnik():
-    Przeciwnik = list_Przeciwnik.copy()
-    return Przeciwnik
+    przeciwnik = list_Przeciwnik.copy()
+    return przeciwnik
 #------------------------------------Rozgrywka
 print(Name)
 print('Jeśli chcesz skończyć grę wpisz "stop"')
