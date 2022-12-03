@@ -6,7 +6,7 @@ Name = input("podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 
-Bohater = [Name,Max_hp,Hp,0,1,0]
+Bohater = [Name,Max_hp,Hp,0,1,1000]
 #while Max_hp >= Bohater[2]:
     
 #------------------------------------Poziom
@@ -92,15 +92,10 @@ for Zbroja in Przedmioty:
 #------------------------------------Atak
 def Zwykły_atak():
     return randint(0,5)
-    
 
 def Mocny_atak():
     if Miecz in Przedmioty:
-        Zwykły_atak()*2
-    else:
-        print('-'*50)
-        print("""Nie możesz tego zrobić.
-Potrzebujesz 'Miecz' żeby użyć.""")
+        return Zwykły_atak()*2
 
 def Wybierz_atak():
     if wybierz_atak.title() == '1':
@@ -111,28 +106,28 @@ def Wybierz_atak():
 def leczenie_1():
     if Mała_potka in Przedmioty:
         Bohater[2] += 15
+        print('Odzyskałeś 15 Hp\n')
         if wybierz_leczenie == '1':
             Przedmioty.remove(Mała_potka)
     else:
-        print('-'*50)
         print('Nie masz małej potki!!!\n')
 
 def leczenie_2():
     if Średnia_potka in Przedmioty:
         Bohater[2] += 30
+        print('Odzyskałeś 30 Hp\n')
         if wybierz_leczenie == '2':
             Przedmioty.remove(Średnia_potka)
     else:
-        print('-'*50)
         print('Nie masz średniej potki!!!\n')
     
 def leczenie_3():
     if Duża_potka in Przedmioty:
         Bohater[2] += 100
+        print('Odzyskałeś 100 Hp\n')
         if wybierz_leczenie == '3':
             Przedmioty.remove(Duża_potka)
     else:
-        print('-'*50)
         print('Nie masz dużej potki!!!\n')
 
 def Wybierz_leczenie():
@@ -143,15 +138,12 @@ def Wybierz_leczenie():
     wybierz_leczenie = input()
     if wybierz_leczenie == '1':
         print('-'*50)
-        print('Odzyskałeś 15 Hp\n')
         return leczenie_1() 
     elif wybierz_leczenie == '2':
         print('-'*50)
-        print('Odzyskałeś 30 Hp\n')
         return leczenie_2()
     elif wybierz_leczenie == '3':
         print('-'*50)
-        print('Odzyskałeś 100 Hp\n')
         return leczenie_3()
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny
@@ -201,10 +193,14 @@ while Bohater[2] >= 0:
                     przeciwnik[1] = przeciwnik[1] - atak
                     print(f"Zadałeś {atak} obrażeń")
                     print("-"*50)
-                elif wybierz_atak == '2':
+                if wybierz_atak == '2':
                     Mocny_atak()
-                    print(f"Zadałeś {Mocny_atak()} obrażeń")
-                    print('-'*50)
+                    if Miecz not in Przedmioty:
+                        print('-'*50)
+                        print("""Nie możesz tego zrobić!!!!!!!!!!!!!!!!!!!!!!
+Potrzebujesz 'Miecz' żeby użyć!""")
+                        print(f"Zadałeś {Mocny_atak()} obrażeń")
+                        print('-'*50)
             elif inp1 == '2':
                 Wybierz_leczenie()
         if inp1 == 'stop':
