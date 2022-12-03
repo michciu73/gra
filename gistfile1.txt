@@ -96,12 +96,7 @@ def Zwykły_atak():
 def Mocny_atak():
     if Miecz in Przedmioty:
         return Zwykły_atak()*2
-
-def Wybierz_atak():
-    if wybierz_atak.title() == '1':
-        return Zwykły_atak()
-    elif wybierz_atak.title() == '2':
-        return Mocny_atak()
+    
 #------------------------------------Leczenie
 def leczenie_1():
     if Mała_potka in Przedmioty:
@@ -153,7 +148,6 @@ def Przeciwnik():
     przeciwnik = list_Przeciwnik.copy()
     return przeciwnik
 #------------------------------------Rozgrywka
-
 print(Name)
 input('Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
@@ -172,11 +166,11 @@ while Bohater[2] >= 0:
         print("-"*50)
         while przeciwnik[1] >= 0:
             print(f"{Name} walczysz teraz z {przeciwnik[0]}")
-            print(f"Przeciwnik ma {przeciwnik[1]} Hp i zadaje ci {przeciwnik[2]} obrażeń")
+            print(f"Przeciwnik ma {przeciwnik[1]} Hp i zadaje ci {przeciwnik[2]} obrażeń\n")
             Bohater[2] = Bohater[2] - przeciwnik[2]
             if Bohater[2] <= 0:
                 break
-            print(f"Zostało ci {Bohater[2]} Hp\n")
+            print(f"Zostało ci {Bohater[2]} Hp")
             print(f"Twoje przedmioty    {Przedmioty}")
             print('1 - atak')
             print('2 - uleczyć')
@@ -194,12 +188,17 @@ while Bohater[2] >= 0:
                     print(f"Zadałeś {atak} obrażeń")
                     print("-"*50)
                 if wybierz_atak == '2':
-                    Mocny_atak()
                     if Miecz not in Przedmioty:
-                        print('-'*50)
-                        print("""Nie możesz tego zrobić!!!!!!!!!!!!!!!!!!!!!!
+                        print('!'*50)
+                        print("""Zadełeś 0 obrażeń.
+Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
-                        print(f"Zadałeś {Mocny_atak()} obrażeń")
+                        print('!'*50)
+                    else:
+                        atak_1 = Mocny_atak()
+                        przeciwnik[1] = przeciwnik[1] - atak_1
+                        print('-'*50)
+                        print(f"Zadałeś {atak_1} obrażeń")
                         print('-'*50)
             elif inp1 == '2':
                 Wybierz_leczenie()
