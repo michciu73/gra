@@ -1,0 +1,190 @@
+from random import randint, random;
+import copy
+#------------------------------------Bohater
+Name = input("podaj imię swojego bohatera   ")
+#0--imię  1--max_hp  2--hp  3--pd  4--poziom  5--coiny
+Max_hp = 100
+Hp = copy.copy(Max_hp)
+Bohater = [Name,Max_hp,Hp,0,1,0]
+#------------------------------------przedmioty
+Miecz = 'Miecz'
+Zbroja = 'Zbroja'
+Mała_potka = 'Mała potka'
+Średnia_potka = 'Średnia potka'
+Duża_potka = 'Duża potka'
+
+#-------------------------------------Sklep
+def Sklep():
+    print('Witaj w sklepie. Co chciałbyś kupić?    ')
+    print(f'Masz {Bohater[5]} coinów\n')
+    print('1 - Miecz  =  200 coinów')
+    print('2 - Zbroja  =  300 coinów')
+    print('3 - Mała potka -leczy 10 Hp  =  10 coinów')
+    print('4 - Średnia potka -leczy 30 Hp  =  40 coinów')
+    print('5 - Duża potka -leczy 100 Hp  =  100 coinów')
+    print('-'*50)
+    print(f'twoje przedmioty {Przedmioty}')
+    while True:
+        print('-'*50)
+        gear = input()
+        if gear == "1":
+            if Miecz in Przedmioty:
+                    print("Możesz mieć tylko jeden miecz!")
+            elif Bohater[5] >= 200:
+                Przedmioty.append(Miecz)
+                print("Kupiłeś miecz!")
+                Bohater[5] -= 200
+            else:
+                print("Masz za mało coinów!")
+        elif gear == '2':
+            if Zbroja in Przedmioty:
+                print("Możesz mieć tylko jedną zbroje!")
+            elif Bohater[5] >= 300:
+                Przedmioty.append(Zbroja)
+                print("Kupiłeś zbroje!")
+                Bohater[5] -= 300
+            else:
+                print("Masz za mało coinów")
+        elif gear == '3':
+            if Bohater[5] >= 15:
+                Przedmioty.append(Mała_potka)
+                print('Kupiłeś małą potke')
+                Bohater[5] -= 15
+            else:
+                print('Masz za mało coinów!')
+        elif gear == '4':
+            if Bohater[5] >= 40:
+                Przedmioty.append(Średnia_potka)
+                print('Kupiłeś średnią potke')
+                Bohater[5] -= 40
+            else:
+                print('Masz za mało coinów!')
+        elif gear == '5':
+            if Bohater[5] >= 100:
+                Przedmioty.append(Duża_potka)
+                print('Kupiłeś dużą potke')
+                Bohater[5] -= 100
+            else:
+                print('Masz za mało coinów!')
+        elif gear == 'nie':
+            break
+        print(f'Pozostałe coiny:    {Bohater[5]}')
+        print(f'Twoje przedmioty:    {Przedmioty}')
+        print('nie - Wyjście')
+        print('Czy chcesz kupić coś jeszcze?')
+#------------------------------------Przedmioty_1
+Przedmioty = []
+
+if Zbroja in Przedmioty:
+    Bohater[1] += 20
+#------------------------------------Atak
+def Zwykły_atak():
+    return randint(0,5)
+
+def Mocny_atak():
+    if Miecz in Przedmioty:
+        przeciwnik[1] -= Zwykły_atak()*2
+    else:
+        print('-'*50)
+        print("""Nie możesz tego zrobić.
+Potrzebujesz 'Miecz' żeby użyć.""")
+
+def Wybierz_atak():
+    print('1 - wykonaj Zwykły atak')
+    print('2 - wykonaj Mocny atak')
+    global wybierz_atak 
+    wybierz_atak = input()
+    if wybierz_atak.title() == '1':
+        return Zwykły_atak()
+    elif wybierz_atak.title() == '2':
+        return Mocny_atak()
+#------------------------------------Leczenie
+def leczenie_1():
+    if Mała_potka in Przedmioty:
+        Bohater[2] += 15
+    else:
+        print('-'*50)
+        print('Nie masz małej potki!!!')
+
+def leczenie_2():
+    if Średnia_potka in Przedmioty:
+        Bohater[2] += 30
+    else:
+        print('-'*50)
+        print('Nie masz średniej potki!!!')
+    
+def leczenie_3():
+    if Duża_potka in Przedmioty:
+        Bohater[2] += 100
+    else:
+        print('-'*50)
+        print('Nie masz dużej potki!!!')
+
+def Wybierz_leczenie():
+    print('1 - wypij małą potke')
+    print('2 - wypij średnią potke')
+    print('3 - wypij dużą potke')
+    wybierz_leczenie = input()
+    if wybierz_leczenie.title() == '1':
+        return leczenie_1()
+    elif wybierz_leczenie.title() == '2':
+        return leczenie_2()
+    elif wybierz_leczenie.title() == '3':
+        return leczenie_3()
+#------------------------------------Przeciwnik
+#0--nazwa  1--Hp  2--atak  3--coiny
+list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",15,randint(1,8),randint(0,10)]
+def Przeciwnik():
+    Przeciwnik = list_Przeciwnik.copy()
+    return Przeciwnik
+#------------------------------------Rozgrywka
+print(Name)
+print('Jeśli chcesz skończyć grę wpisz "stop"')
+input('Zaczynasz swoją podróż')
+print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
+print(Bohater)
+while Bohater[2] > 0:
+    print('-'*50)
+    print('wpisz "nie" aby skożystać ze sklepu')
+    print(f'Twoje przedmioty:   {Przedmioty}')
+    print(f'Twoje statystyki    {Bohater}')
+    inp = input('Czy chcesz kontynułować podróż?   ')
+    if inp == 'stop':
+        break
+    if inp != 'nie':
+        przeciwnik = Przeciwnik()
+        print("-"*50)
+        while przeciwnik[1] > 0:
+            print(f"{Name} walczysz teraz z {przeciwnik[0]}")
+            print(f"Przeciwnik ma {przeciwnik[1]} Hp i zadaje ci {przeciwnik[2]} obrażeń")
+            Bohater[2] = Bohater[2] - przeciwnik[2]
+            if Bohater[2] < 0:
+                break
+            print(f"Zostało ci {Bohater[2]} Hp\n")
+            print(f"Twoje przedmioty    {Przedmioty}")
+            print('1 - atak')
+            print('2 - uleczyć')
+            inp1 = input('Co chcesz zrobić?    ')
+            if inp1 == '1':
+                atak = Wybierz_atak()
+                przeciwnik[1] = przeciwnik[1] - atak
+                print(f"Zadałeś {atak} obrażeń")
+                print("-"*50)
+            elif inp1 == '2':
+                Wybierz_leczenie()
+        if inp1 == 'stop':
+            break
+        if przeciwnik[1] < 0:
+            print(f"Dostałeś {przeciwnik[3]} coinów")
+            Bohater[5] += przeciwnik[3]
+            print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
+    if inp == 'nie':
+        print('-'*50)
+        print('1 - Sklep')
+        inp2 = input('Co chcesz zrobić?    \n')
+        if inp2 == '1':
+            Sklep()
+
+print("="*50)
+print("Przegrałeś !!!!!!!!")
+print(f"Osiągnąłęś {Bohater[4]} poziom")
