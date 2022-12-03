@@ -6,7 +6,7 @@ Name = input("Podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 
-Bohater = [Name,Max_hp,Hp,540,1,1000]
+Bohater = [Name,Max_hp,Hp,0,1,0]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
 Miecz = 'Miecz'
