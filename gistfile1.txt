@@ -20,7 +20,7 @@ Przedmioty = []
 def Sklep():
     print('Witaj w sklepie. Co chciałbyś kupić?    ')
     print(f'Masz {Bohater[5]} coinów\n')
-    print('1 - Miecz: odblokowuje mocny atak  =  150 coinów')
+    print('1 - Miecz: odblokowuje mocny atak  =  120 coinów')
     print('2 - Zbroja: +20 Max hp  =  200 coinów')
     print('3 - Mała potka: leczy 10 Hp  =  10 coinów')
     print('4 - Średnia potka: leczy 30 Hp  =  40 coinów')
@@ -33,10 +33,10 @@ def Sklep():
         if gear == "1":
             if Miecz in Przedmioty:
                     print("Możesz mieć tylko jeden miecz!")
-            elif Bohater[5] >= 150:
+            elif Bohater[5] >= 120:
                 Przedmioty.append(Miecz)
                 print("Kupiłeś miecz!")
-                Bohater[5] -= 150
+                Bohater[5] -= 120
             else:
                 print("Masz za mało coinów!")
         elif gear == '2':
@@ -84,9 +84,7 @@ def Sklep():
 def Zwykły_atak():
     return randint(0,5)
 
-def Mocny_atak():
-    return 2
-
+Mocny_atak = [2]
 #------------------------------------Leczenie
 def leczenie_1():
     if Mała_potka in Przedmioty:
@@ -147,7 +145,7 @@ def Wybierz_leczenie():
 def Ubgrade():
     print('Co chciałbyś ulepszyć?    ')
     print(f'Masz {Bohater[5]} coinów\n')
-    print('1 - Miecz: Zwiększa obrażenia  =  100 coinów')
+    print('1 - Miecz: + 2 Mocny atak  =  100 coinów')
     print('2 - Zbroja: + 15 Max Hp  =  175 coinów')
     while True:
         print('-'*50)
@@ -155,9 +153,9 @@ def Ubgrade():
         if gear_1 == '1':
             if Miecz in Przedmioty:
                 if Bohater[5] >= 100:
+                    Mocny_atak[0] += 2
                     print('Ulepszyłeś miecz!')
                     Bohater[5] -= 100
-                    Mocny_atak() + 2
                 else:
                     print('Masz za mało coinów!')
             else:
@@ -236,10 +234,9 @@ Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
                         print('!'*50)
                     if Miecz in Przedmioty:
-                        atak_1 = Mocny_atak()
-                        przeciwnik[1] = przeciwnik[1] - atak_1
+                        przeciwnik[1] = przeciwnik[1] - Mocny_atak[0]
                         print('-'*50)
-                        print(f"Zadałeś {atak_1} obrażeń")
+                        print(f"Zadałeś {Mocny_atak[0]} obrażeń")
                         print('-'*50)
             elif inp1 == '2':
                 Wybierz_leczenie()
