@@ -6,7 +6,7 @@ Name = input("Podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 
-Bohater = [Name,Max_hp,Hp,0,15,1000]
+Bohater = [Name,Max_hp,Hp,0,1,0]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
 Miecz = 'Miecz'
@@ -38,7 +38,7 @@ def Sklep():
                 print("Kupiłeś miecz!")
                 Bohater[5] -= 105
             else:
-                print("Masz za mało coinów!")
+                print("Nie stać cie biedaku!")
         elif gear == '2':
             if Zbroja in Przedmioty:
                 print("Możesz mieć tylko jedną zbroję!")
@@ -48,28 +48,28 @@ def Sklep():
                 print("Kupiłeś zbroję!")
                 Bohater[5] -= 200
             else:
-                print("Masz za mało coinów")
+                print("Nie stać cie biedaku")
         elif gear == '3':
             if Bohater[5] >= 10:
                 Przedmioty.append(Mała_potka)
                 print('Kupiłeś małą potkę')
                 Bohater[5] -= 10
             else:
-                print('Masz za mało coinów!')
+                print('Nie stać cie biedaku!')
         elif gear == '4':
             if Bohater[5] >= 40:
                 Przedmioty.append(Średnia_potka)
                 print('Kupiłeś średnią potkę')
                 Bohater[5] -= 40
             else:
-                print('Masz za mało coinów!')
+                print('Nie stać cie biedaku!')
         elif gear == '5':
             if Bohater[5] >= 100:
                 Przedmioty.append(Duża_potka)
                 print('Kupiłeś dużą potkę')
                 Bohater[5] -= 100
             else:
-                print('Masz za mało coinów!')
+                print('Nie stać cie biedaku!')
         elif gear == 'nie':
             break
         print(f'Twoje przedmioty:    {Przedmioty}')
@@ -154,7 +154,7 @@ def Ubgrade():
                     print('Ulepszyłeś miecz!')
                     Bohater[5] -= 100
                 else:
-                    print('Masz za mało coinów!')
+                    print('Nie stać cie biedaku!')
             else:
                 print('Mósisz kupić miecz aby ulepszyć!')
         elif gear_1 == "2":
@@ -164,7 +164,7 @@ def Ubgrade():
                     Bohater[5] -= 175
                     Bohater[1] += 15
                 else:
-                    print('Masz za mało coinów!')
+                    print('Nie stać cie biedaku!')
             else:
                 print('Musis kupić zbroję aby ulepszyć')
         elif gear_1 == 'nie':
@@ -174,15 +174,16 @@ def Ubgrade():
         print(f'Pozostałe coiny:    {Bohater[5]}')
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny  4--Pd
+Przeciwnik_Hp = 10
 def Przeciwnik_atak():
-    return randint(0,5)
+    return randint(0,3)
 def Przeciwnik_coiny():
-    return randint(0,30)
+    return randint(0,25)
 def Przeciwnik_Pd():
     return randint(1,30)
 def Przeciwnik():
     global list_Przeciwnik
-    list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
+    list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",Przeciwnik_Hp,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
     return list_Przeciwnik
 
 def Boss_atak():
@@ -206,6 +207,8 @@ while Bohater[2] >= 0:
     print('-'*50)
     print(f'Twoje przedmioty:   {Przedmioty}')
     print(f'Twoje statystyki:    {Bohater}')
+    rest_Pd = 200 - Bohater[3]
+    print(f'Potrzebujesz {rest_Pd} Pd do kolejnego poziomu!')
     print('1 - walka')
     print('2 - sklep')
     inp = input('Co chcesz zrobić?   ')
@@ -257,11 +260,15 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             if inp1 == 'stop':
                 break
             if List_boss[1] <= 0:
-                print('Pokonałeś Bossa!!!!!!!!!!!!!!!!!!!')
-                print(f"Dostałeś {List_boss[3]} coinów i {List_boss[4]} Pd")
+                print('Brawo. Pokonałeś Bossa!!!!!!!!!!!!!!!!')
+                global inp_b
+                inp_b = input(f"Dostałeś {List_boss[3]} coinów i {List_boss[4]} Pd")
                 Bohater[5] += List_boss[3]
                 Bohater[4] += 1
                 liczba_pokonanych_bossów += 1
+                List_boss[1] = List_boss[1] + 60
+                List_boss[2] = List_boss[2] + Boss_atak()
+                List_boss[3] = List_boss[3] + Boss_coiny()
         else:
             Przeciwnik()
             print("-"*50)
@@ -318,11 +325,15 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Sklep()
         if inp2 == '2':
             Ubgrade()
-    if Bohater[3] >= 200:
+    if Bohater[3] >= 20:###########
+        list_Przeciwnik[1] = list_Przeciwnik[1] + 10
+        list_Przeciwnik[2] = list_Przeciwnik[2] + Przeciwnik_atak()
+        list_Przeciwnik[3] = list_Przeciwnik[3] + Przeciwnik_coiny()
+        list_Przeciwnik[4] = list_Przeciwnik[3] + Przeciwnik_Pd()
         print('^'*50)
         inp_1 = input('Gratulecje, awansowałeś na kolejny poziom!!!')
         Bohater[4] += 1
-        Bohater[3] -= 200
+        Bohater[3] -= 20############
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
