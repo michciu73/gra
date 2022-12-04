@@ -41,32 +41,32 @@ def Sklep():
                 print("Masz za mało coinów!")
         elif gear == '2':
             if Zbroja in Przedmioty:
-                print("Możesz mieć tylko jedną zbroje!")
+                print("Możesz mieć tylko jedną zbroję!")
             elif Bohater[5] >= 200:
                 Przedmioty.append(Zbroja)
                 Bohater[1] += 20
-                print("Kupiłeś zbroje!")
+                print("Kupiłeś zbroję!")
                 Bohater[5] -= 200
             else:
                 print("Masz za mało coinów")
         elif gear == '3':
             if Bohater[5] >= 10:
                 Przedmioty.append(Mała_potka)
-                print('Kupiłeś małą potke')
+                print('Kupiłeś małą potkę')
                 Bohater[5] -= 10
             else:
                 print('Masz za mało coinów!')
         elif gear == '4':
             if Bohater[5] >= 40:
                 Przedmioty.append(Średnia_potka)
-                print('Kupiłeś średnią potke')
+                print('Kupiłeś średnią potkę')
                 Bohater[5] -= 40
             else:
                 print('Masz za mało coinów!')
         elif gear == '5':
             if Bohater[5] >= 100:
                 Przedmioty.append(Duża_potka)
-                print('Kupiłeś dużą potke')
+                print('Kupiłeś dużą potkę')
                 Bohater[5] -= 100
             else:
                 print('Masz za mało coinów!')
@@ -77,12 +77,13 @@ def Sklep():
         print('nie - Wyjście')
         print('Czy chcesz kupić coś jeszcze?')
 
-#------------------------------------Uplepszenia
-#def Ubgrade():
-    
+
+            
+
 #------------------------------------Atak
 def Zwykły_atak():
     return randint(0,5)
+
 
 def Mocny_atak():
     return Zwykły_atak()*2
@@ -142,6 +143,39 @@ def Wybierz_leczenie():
     elif wybierz_leczenie == '3':
         print('-'*50)
         return leczenie_3()
+
+#------------------------------------Uplepszenia
+def Ubgrade():
+    print('Co chciałbyś ulepszyć?    ')
+    print(f'Masz {Bohater[5]} coinów\n')
+    print('1 - Miecz: Zwiększa obrażenia  =  200 coinów')
+    print('2 - Zbroja: + 15 Max Hp  =  175 coinów')
+    while True:
+        print('-'*50)
+        gear_1 = input()
+        if gear_1 == '1':
+            if Miecz in Przedmioty:
+                if Bohater[5] >= 200:
+                    
+                    print('Ulepszyłeś miecz!')
+                    Bohater[5] -= 200
+                else:
+                    print('Masz za mało coinów!')
+            else:
+                print('Mósisz kupić miecz aby ulepszyć!')
+        elif gear_1 == "2":
+            if Zbroja in Przedmioty:
+                if Bohater[5] >= 175:
+                    print('Ulepszyłeś zbroję!')
+                    Bohater[5] -= 175
+                    Bohater[1] += 15
+                else:
+                    print('Masz za mało coinów!')
+            else:
+                print('Musis kupić zbroję aby ulepszyć')
+        elif gear_1 == 'nie':
+            break
+
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny  4--Pd
 list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(0,5),randint(0,25),randint(1,30)]
@@ -151,6 +185,7 @@ def Przeciwnik():
     przeciwnik = list_Przeciwnik.copy()
     return przeciwnik
 #------------------------------------Rozgrywka
+liczba_pokonanych_przeciwników = 0
 input(f'\n{Bohater[0]} Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
@@ -214,6 +249,7 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             print(f"Dostałeś {przeciwnik[3]} coinów i {przeciwnik[4]} Pd")
             Bohater[5] += przeciwnik[3]
             Bohater[3] += przeciwnik[4]
+            liczba_pokonanych_przeciwników += 1
     if inp == '2':
         print('-'*50)
         print('1 - Kupić')
@@ -221,8 +257,8 @@ Potrzebujesz 'Miecz' żeby użyć!""")
         inp2 = input('Co chcesz zrobić?    \n')
         if inp2 == '1':
             Sklep()
-        #if inp2 == '2':
-            #Ubgrade()
+        if inp2 == '2':
+            Ubgrade()
     if Bohater[3] >= 250:
         print('^'*50)
         inp_1 = input('Gratulecje, awansowałeś na kolejny poziom!!!')
@@ -231,4 +267,5 @@ Potrzebujesz 'Miecz' żeby użyć!""")
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
+print(f'Zabiłeś {liczba_pokonanych_przeciwników} przeciwników')
 print(f"Osiągnąłęś {Bohater[4]} poziom")
