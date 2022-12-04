@@ -6,7 +6,6 @@ Name = input("Podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 level = 1
-
 Bohater = [Name,Max_hp,Hp,0,level,0]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
@@ -185,9 +184,6 @@ def Przeciwnik_Pd():
 def Przeciwnik():
     global list_Przeciwnik
     list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",Przeciwnik_Hp,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
-    if Bohater[4] > level:
-        list_Przeciwnik[1] += 10
-        list_Przeciwnik[2] += list_Przeciwnik[2]
     return list_Przeciwnik 
 
 def Boss_atak():
@@ -277,6 +273,9 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Przeciwnik()
             print("-"*50)
             while list_Przeciwnik[1] >= 0:
+                while Bohater[4] > level:
+                    list_Przeciwnik[1] += 10
+                    list_Przeciwnik[2] += Przeciwnik_atak()
                 print(f"{Name} walczysz teraz z {list_Przeciwnik[0]}")
                 print(f"Przeciwnik ma {list_Przeciwnik[1]} Hp i zadaje ci {list_Przeciwnik[2]} obrażeń\n")
                 Bohater[2] = Bohater[2] - list_Przeciwnik[2]
