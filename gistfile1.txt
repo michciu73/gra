@@ -5,8 +5,9 @@ Name = input("Podaj imię swojego bohatera   ")
 #0--imię  1--max_hp  2--hp  3--pd  4--poziom  5--coiny
 Max_hp = 100
 Hp = copy.copy(Max_hp)
+level = 1
 
-Bohater = [Name,Max_hp,Hp,0,1,0]
+Bohater = [Name,Max_hp,Hp,0,level,0]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
 Miecz = 'Miecz'
@@ -81,7 +82,7 @@ def Sklep():
 def Zwykły_atak():
     return randint(0,5)
 
-Mocny_atak = [2]
+Mocny_atak = [4]
 #------------------------------------Leczenie
 def leczenie_1():
     if Mała_potka in Przedmioty:
@@ -176,7 +177,7 @@ def Ubgrade():
 #0--nazwa  1--Hp  2--atak  3--coiny  4--Pd
 Przeciwnik_Hp = 10
 def Przeciwnik_atak():
-    return randint(0,3)
+    return randint(1,3)
 def Przeciwnik_coiny():
     return randint(0,25)
 def Przeciwnik_Pd():
@@ -184,7 +185,10 @@ def Przeciwnik_Pd():
 def Przeciwnik():
     global list_Przeciwnik
     list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",Przeciwnik_Hp,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
-    return list_Przeciwnik
+    if Bohater[4] > level:
+        list_Przeciwnik[1] += 10
+        list_Przeciwnik[2] += list_Przeciwnik[2]
+    return list_Przeciwnik 
 
 def Boss_atak():
     return randint(7,24)
@@ -325,15 +329,11 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Sklep()
         if inp2 == '2':
             Ubgrade()
-    if Bohater[3] >= 20:###########
-        list_Przeciwnik[1] = list_Przeciwnik[1] + 10
-        list_Przeciwnik[2] = list_Przeciwnik[2] + Przeciwnik_atak()
-        list_Przeciwnik[3] = list_Przeciwnik[3] + Przeciwnik_coiny()
-        list_Przeciwnik[4] = list_Przeciwnik[3] + Przeciwnik_Pd()
+    if Bohater[3] >= 2:
         print('^'*50)
         inp_1 = input('Gratulecje, awansowałeś na kolejny poziom!!!')
         Bohater[4] += 1
-        Bohater[3] -= 20############
+        Bohater[3] -= Bohater[3]
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
