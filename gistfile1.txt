@@ -77,9 +77,6 @@ def Sklep():
         print('Czy chcesz kupić coś jeszcze?')
         print(f'Pozostałe coiny:    {Bohater[5]}')
 
-
-            
-
 #------------------------------------Atak
 def Zwykły_atak():
     return randint(0,5)
