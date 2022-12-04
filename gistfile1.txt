@@ -6,7 +6,7 @@ Name = input("Podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 
-Bohater = [Name,Max_hp,Hp,0,1,1000]
+Bohater = [Name,Max_hp,Hp,0,15,1000]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
 Miecz = 'Miecz'
@@ -20,7 +20,7 @@ Przedmioty = []
 def Sklep():
     print('Witaj w sklepie. Co chciałbyś kupić?    ')
     print(f'Masz {Bohater[5]} coinów\n')
-    print('1 - Miecz: odblokowuje mocny atak  =  120 coinów')
+    print('1 - Miecz: odblokowuje mocny atak  =  105 coinów')
     print('2 - Zbroja: +20 Max hp  =  200 coinów')
     print('3 - Mała potka: leczy 10 Hp  =  10 coinów')
     print('4 - Średnia potka: leczy 30 Hp  =  40 coinów')
@@ -33,10 +33,10 @@ def Sklep():
         if gear == "1":
             if Miecz in Przedmioty:
                     print("Możesz mieć tylko jeden miecz!")
-            elif Bohater[5] >= 120:
+            elif Bohater[5] >= 105:
                 Przedmioty.append(Miecz)
                 print("Kupiłeś miecz!")
-                Bohater[5] -= 120
+                Bohater[5] -= 105
             else:
                 print("Masz za mało coinów!")
         elif gear == '2':
@@ -184,71 +184,131 @@ def Przeciwnik():
     global list_Przeciwnik
     list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
     return list_Przeciwnik
+
+def Boss_atak():
+    return randint(7,24)
+def Boss_coiny():
+    return randint(30,100)
+def Boss():
+    global List_boss
+    List_boss = ['Boss',60,Boss_atak(),Boss_coiny(),1]
+    return List_boss
 #------------------------------------Rozgrywka
 liczba_pokonanych_przeciwników = 0
+liczba_pokonanych_bossów = 0
 input(f'\n{Bohater[0]} Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
 while Bohater[2] >= 0:
     Bohater[1] >= Bohater[2]
+    if Bohater[2] <= 0:
+        break
     print('-'*50)
     print(f'Twoje przedmioty:   {Przedmioty}')
     print(f'Twoje statystyki:    {Bohater}')
     print('1 - walka')
     print('2 - sklep')
     inp = input('Co chcesz zrobić?   ')
-    if Bohater[2] <= 0:
-        break
     if inp == 'stop':
         break
     if inp == '1':
-        Przeciwnik()
-        print("-"*50)
-        while list_Przeciwnik[1] >= 0:
-            print(f"{Name} walczysz teraz z {list_Przeciwnik[0]}")
-            print(f"Przeciwnik ma {list_Przeciwnik[1]} Hp i zadaje ci {list_Przeciwnik[2]} obrażeń\n")
-            Bohater[2] = Bohater[2] - list_Przeciwnik[2]
-            if Bohater[2] <= 0:
-                break
-            print(f"Zostało ci {Bohater[2]} Hp")
-            print(f"Twoje przedmioty    {Przedmioty}")
-            print('1 - atak')
-            print('2 - uleczyć')
-            inp1 = input('Co chcesz zrobić?    ')
-            if inp1 == 'stop':
-                break
-            if inp1 == '1':
-                global wybierz_atak 
-                print('1 - wykonaj Zwykły atak')
-                print('2 - wykonaj Mocny atak')
-                wybierz_atak = input()
-                if wybierz_atak == '1':
-                    atak = Zwykły_atak()
-                    list_Przeciwnik[1] = list_Przeciwnik[1] - atak
-                    print(f"Zadałeś {atak} obrażeń")
-                    print("-"*50)
-                if wybierz_atak == '2':
-                    if Miecz not in Przedmioty:
-                        print('!'*50)
-                        print("""Zadełeś 0 obrażeń.
+        if Bohater[4]%5 == 0:
+            print('!'*50)
+            print('Nadszedł czas na walkę z Bossem!')
+            Boss()
+            print("-"*50)
+            while List_boss[1] >= 0:
+                print(f"{Name} walczysz teraz z {List_boss[0]}")
+                print(f"Przeciwnik ma {List_boss[1]} Hp i zadaje ci {List_boss[2]} obrażeń\n")
+                Bohater[2] = Bohater[2] - List_boss[2]
+                if Bohater[2] <= 0:
+                    break
+                print(f"Zostało ci {Bohater[2]} Hp")
+                print(f"Twoje przedmioty    {Przedmioty}")
+                print('1 - atak')
+                print('2 - uleczyć')
+                inp1 = input('Co chcesz zrobić?    ')
+                if inp1 == 'stop':
+                    break
+                if inp1 == '1':
+                    global wybierz_atak 
+                    print('1 - wykonaj Zwykły atak')
+                    print('2 - wykonaj Mocny atak')
+                    wybierz_atak = input()
+                    if wybierz_atak == '1':
+                        atak = Zwykły_atak()
+                        List_boss[1] = List_boss[1] - atak
+                        print(f"Zadałeś {atak} obrażeń")
+                        print("-"*50)
+                    if wybierz_atak == '2':
+                        if Miecz not in Przedmioty:
+                            print('!'*50)
+                            print("""Zadełeś 0 obrażeń.
 Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
-                        print('!'*50)
-                    if Miecz in Przedmioty:
-                        list_Przeciwnik[1] = list_Przeciwnik[1] - Mocny_atak[0]
-                        print('-'*50)
-                        print(f"Zadałeś {Mocny_atak[0]} obrażeń")
-                        print('-'*50)
-            elif inp1 == '2':
-                Wybierz_leczenie()
-        if inp1 == 'stop':
-            break
-        if list_Przeciwnik[1] <= 0:
-            print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
-            print(f"Dostałeś {list_Przeciwnik[3]} coinów i {list_Przeciwnik[4]} Pd")
-            Bohater[5] += list_Przeciwnik[3]
-            Bohater[3] += list_Przeciwnik[4]
-            liczba_pokonanych_przeciwników += 1
+                            print('!'*50)
+                        if Miecz in Przedmioty:
+                            List_boss[1] = List_boss[1] - Mocny_atak[0]
+                            print('-'*50)
+                            print(f"Zadałeś {Mocny_atak[0]} obrażeń")
+                            print('-'*50)
+                    elif inp1 == '2':
+                        Wybierz_leczenie()
+            if inp1 == 'stop':
+                break
+            if List_boss[1] <= 0:
+                print('Pokonałeś Bossa!!!!!!!!!!!!!!!!!!!')
+                print(f"Dostałeś {List_boss[3]} coinów i {List_boss[4]} Pd")
+                Bohater[5] += List_boss[3]
+                Bohater[4] += 1
+                liczba_pokonanych_bossów += 1
+        else:
+            Przeciwnik()
+            print("-"*50)
+            while list_Przeciwnik[1] >= 0:
+                print(f"{Name} walczysz teraz z {list_Przeciwnik[0]}")
+                print(f"Przeciwnik ma {list_Przeciwnik[1]} Hp i zadaje ci {list_Przeciwnik[2]} obrażeń\n")
+                Bohater[2] = Bohater[2] - list_Przeciwnik[2]
+                if Bohater[2] <= 0:
+                    break
+                print(f"Zostało ci {Bohater[2]} Hp")
+                print(f"Twoje przedmioty    {Przedmioty}")
+                print('1 - atak')
+                print('2 - uleczyć')
+                inp1 = input('Co chcesz zrobić?    ')
+                if inp1 == 'stop':
+                    break
+                if inp1 == '1':
+                    print('1 - wykonaj Zwykły atak')
+                    print('2 - wykonaj Mocny atak')
+                    wybierz_atak = input()
+                    if wybierz_atak == '1':
+                        atak = Zwykły_atak()
+                        list_Przeciwnik[1] = list_Przeciwnik[1] - atak
+                        print(f"Zadałeś {atak} obrażeń")
+                        print("-"*50)
+                    if wybierz_atak == '2':
+                        if Miecz not in Przedmioty:
+                            print('!'*50)
+                            print("""Zadełeś 0 obrażeń.
+Nie możesz tego zrobić!
+Potrzebujesz 'Miecz' żeby użyć!""")
+                            print('!'*50)
+                        if Miecz in Przedmioty:
+                            list_Przeciwnik[1] = list_Przeciwnik[1] - Mocny_atak[0]
+                            print('-'*50)
+                            print(f"Zadałeś {Mocny_atak[0]} obrażeń")
+                            print('-'*50)
+                    elif inp1 == '2':
+                        Wybierz_leczenie()
+            if inp1 == 'stop':
+                break
+            if list_Przeciwnik[1] <= 0:
+                print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
+                print(f"Dostałeś {list_Przeciwnik[3]} coinów i {list_Przeciwnik[4]} Pd")
+                Bohater[5] += list_Przeciwnik[3]
+                Bohater[3] += list_Przeciwnik[4]
+                liczba_pokonanych_przeciwników += 1
     if inp == '2':
         print('-'*50)
         print('1 - Kupić')
@@ -258,13 +318,14 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Sklep()
         if inp2 == '2':
             Ubgrade()
-    if Bohater[3] >= 250:
+    if Bohater[3] >= 200:
         print('^'*50)
         inp_1 = input('Gratulecje, awansowałeś na kolejny poziom!!!')
         Bohater[4] += 1
-        Bohater[3] -= 250
+        Bohater[3] -= 200
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
 print(f'Zabiłeś {liczba_pokonanych_przeciwników} przeciwników')
+print(f'Pokonałeś {liczba_pokonanych_bossów} Bossów')
 print(f"Osiągnąłęś {Bohater[4]} poziom")
