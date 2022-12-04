@@ -174,12 +174,16 @@ def Ubgrade():
         print(f'Pozostałe coiny:    {Bohater[5]}')
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny  4--Pd
-list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(0,5),randint(0,25),randint(1,30)]
-#if Bohater[4] 
+def Przeciwnik_atak():
+    return randint(0,5)
+def Przeciwnik_coiny():
+    return randint(0,30)
+def Przeciwnik_Pd():
+    return randint(1,30)
 def Przeciwnik():
-    global przeciwnik
-    przeciwnik = list_Przeciwnik.copy()
-    return przeciwnik
+    global list_Przeciwnik
+    list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
+    return list_Przeciwnik
 #------------------------------------Rozgrywka
 liczba_pokonanych_przeciwników = 0
 input(f'\n{Bohater[0]} Zaczynasz swoją podróż')
@@ -198,12 +202,12 @@ while Bohater[2] >= 0:
     if inp == 'stop':
         break
     if inp == '1':
-        przeciwnik = Przeciwnik()
+        Przeciwnik()
         print("-"*50)
-        while przeciwnik[1] >= 0:
-            print(f"{Name} walczysz teraz z {przeciwnik[0]}")
-            print(f"Przeciwnik ma {przeciwnik[1]} Hp i zadaje ci {przeciwnik[2]} obrażeń\n")
-            Bohater[2] = Bohater[2] - przeciwnik[2]
+        while list_Przeciwnik[1] >= 0:
+            print(f"{Name} walczysz teraz z {list_Przeciwnik[0]}")
+            print(f"Przeciwnik ma {list_Przeciwnik[1]} Hp i zadaje ci {list_Przeciwnik[2]} obrażeń\n")
+            Bohater[2] = Bohater[2] - list_Przeciwnik[2]
             if Bohater[2] <= 0:
                 break
             print(f"Zostało ci {Bohater[2]} Hp")
@@ -220,7 +224,7 @@ while Bohater[2] >= 0:
                 wybierz_atak = input()
                 if wybierz_atak == '1':
                     atak = Zwykły_atak()
-                    przeciwnik[1] = przeciwnik[1] - atak
+                    list_Przeciwnik[1] = list_Przeciwnik[1] - atak
                     print(f"Zadałeś {atak} obrażeń")
                     print("-"*50)
                 if wybierz_atak == '2':
@@ -231,7 +235,7 @@ Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
                         print('!'*50)
                     if Miecz in Przedmioty:
-                        przeciwnik[1] = przeciwnik[1] - Mocny_atak[0]
+                        list_Przeciwnik[1] = list_Przeciwnik[1] - Mocny_atak[0]
                         print('-'*50)
                         print(f"Zadałeś {Mocny_atak[0]} obrażeń")
                         print('-'*50)
@@ -239,11 +243,11 @@ Potrzebujesz 'Miecz' żeby użyć!""")
                 Wybierz_leczenie()
         if inp1 == 'stop':
             break
-        if przeciwnik[1] <= 0:
+        if list_Przeciwnik[1] <= 0:
             print('Zabiłeś przeciwnika!!!!!!!!!!!!!!!!!!!')
-            print(f"Dostałeś {przeciwnik[3]} coinów i {przeciwnik[4]} Pd")
-            Bohater[5] += przeciwnik[3]
-            Bohater[3] += przeciwnik[4]
+            print(f"Dostałeś {list_Przeciwnik[3]} coinów i {list_Przeciwnik[4]} Pd")
+            Bohater[5] += list_Przeciwnik[3]
+            Bohater[3] += list_Przeciwnik[4]
             liczba_pokonanych_przeciwników += 1
     if inp == '2':
         print('-'*50)
