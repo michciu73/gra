@@ -6,7 +6,7 @@ Name = input("Podaj imię swojego bohatera   ")
 Max_hp = 100
 Hp = copy.copy(Max_hp)
 
-Bohater = [Name,Max_hp,Hp,0,1,0]
+Bohater = [Name,Max_hp,Hp,0,1,1000]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
 Miecz = 'Miecz'
@@ -16,9 +16,6 @@ Mała_potka = 'Mała potka'
 Duża_potka = 'Duża potka'
 
 Przedmioty = []
-
-if Zbroja in Przedmioty:
-    Bohater[1] += 35
 #-------------------------------------Sklep
 def Sklep():
     print('Witaj w sklepie. Co chciałbyś kupić?    ')
@@ -47,6 +44,7 @@ def Sklep():
                 print("Możesz mieć tylko jedną zbroje!")
             elif Bohater[5] >= 200:
                 Przedmioty.append(Zbroja)
+                Bohater[1] += 20
                 print("Kupiłeś zbroje!")
                 Bohater[5] -= 200
             else:
@@ -146,7 +144,7 @@ def Wybierz_leczenie():
         return leczenie_3()
 #------------------------------------Przeciwnik
 #0--nazwa  1--Hp  2--atak  3--coiny  4--Pd
-list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(0,5),randint(0,25),randint(1,50)]
+list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",10,randint(0,5),randint(0,25),randint(1,30)]
 #if Bohater[4] 
 def Przeciwnik():
     global przeciwnik
@@ -156,7 +154,7 @@ def Przeciwnik():
 input(f'\n{Bohater[0]} Zaczynasz swoją podróż')
 print('1--imię  2--max_hp  3--hp  4--pd  5--poziom  6--coiny')
 print(Bohater)
-while Bohater[2] >= 1:
+while Bohater[2] >= 0:
     Bohater[1] >= Bohater[2]
     print('-'*50)
     print(f'Twoje przedmioty:   {Przedmioty}')
@@ -171,11 +169,11 @@ while Bohater[2] >= 1:
     if inp == '1':
         przeciwnik = Przeciwnik()
         print("-"*50)
-        while przeciwnik[1] >= 1:
+        while przeciwnik[1] >= 0:
             print(f"{Name} walczysz teraz z {przeciwnik[0]}")
             print(f"Przeciwnik ma {przeciwnik[1]} Hp i zadaje ci {przeciwnik[2]} obrażeń\n")
             Bohater[2] = Bohater[2] - przeciwnik[2]
-            if Bohater[2] <= 1:
+            if Bohater[2] <= 0:
                 break
             print(f"Zostało ci {Bohater[2]} Hp")
             print(f"Twoje przedmioty    {Przedmioty}")
@@ -225,11 +223,11 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Sklep()
         #if inp2 == '2':
             #Ubgrade()
-    if Bohater[3] >= 500:
+    if Bohater[3] >= 250:
         print('^'*50)
-        inp_1 = input('Gratulecje, awansowałeś nakolejny poziom!!!')
+        inp_1 = input('Gratulecje, awansowałeś na kolejny poziom!!!')
         Bohater[4] += 1
-        Bohater[3] -= 500
+        Bohater[3] -= 250
 
 print("="*50)
 print("Przegrałeś !!!!!!!!")
