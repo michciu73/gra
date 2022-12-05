@@ -5,8 +5,7 @@ Name = input("Podaj imię swojego bohatera   ")
 #0--imię  1--max_hp  2--hp  3--pd  4--poziom  5--coiny
 Max_hp = 100
 Hp = copy.copy(Max_hp)
-level = 1
-Bohater = [Name,Max_hp,Hp,0,level,0]
+Bohater = [Name,Max_hp,Hp,0,1,0]
 Bohater[2] <= Bohater[1]
 #------------------------------------przedmioty
 Miecz = 'Miecz'
@@ -184,7 +183,12 @@ def Przeciwnik_Pd():
 def Przeciwnik():
     global list_Przeciwnik
     list_Przeciwnik = [f"Przeciwnik poz.{Bohater[4]}",Przeciwnik_Hp,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd()]
-    return list_Przeciwnik 
+    while True:
+            if Bohater[4] > 1:
+                list_Przeciwnik[1] += Przeciwnik_Hp
+                list_Przeciwnik[2] += Przeciwnik_atak()
+            break
+    return list_Przeciwnik
 
 def Boss_atak():
     return randint(7,24)
@@ -207,7 +211,7 @@ while Bohater[2] >= 0:
     print('-'*50)
     print(f'Twoje przedmioty:   {Przedmioty}')
     print(f'Twoje statystyki:    {Bohater}')
-    rest_Pd = 200 - Bohater[3]
+    rest_Pd = 125 - Bohater[3]
     print(f'Potrzebujesz {rest_Pd} Pd do kolejnego poziomu!')
     print('1 - walka')
     print('2 - sklep')
@@ -249,33 +253,28 @@ while Bohater[2] >= 0:
                             print("""Zadełeś 0 obrażeń.
 Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
-                            print('!'*50)
                         if Miecz in Przedmioty:
                             List_boss[1] = List_boss[1] - Mocny_atak[0]
                             print('-'*50)
                             print(f"Zadałeś {Mocny_atak[0]} obrażeń")
                             print('-'*50)
-                    elif inp1 == '2':
-                        Wybierz_leczenie()
+                elif inp1 == '2':
+                    Wybierz_leczenie()
             if inp1 == 'stop':
                 break
             if List_boss[1] <= 0:
                 print('Brawo. Pokonałeś Bossa!!!!!!!!!!!!!!!!')
                 global inp_b
-                inp_b = input(f"Dostałeś {List_boss[3]} coinów i {List_boss[4]} Pd")
+                inp_b = input(f"Dostałeś {List_boss[3]} coinów i {List_boss[4]} Level")
                 Bohater[5] += List_boss[3]
                 Bohater[4] += 1
                 liczba_pokonanych_bossów += 1
-                List_boss[1] = List_boss[1] + 60
-                List_boss[2] = List_boss[2] + Boss_atak()
-                List_boss[3] = List_boss[3] + Boss_coiny()
+                List_boss[1] += 60
+                List_boss[2] = List_boss*2
+                List_boss[3] = List_boss*2
         else:
             Przeciwnik()
-            print("-"*50)
             while list_Przeciwnik[1] >= 0:
-                while Bohater[4] > level:
-                    list_Przeciwnik[1] += 10
-                    list_Przeciwnik[2] += Przeciwnik_atak()
                 print(f"{Name} walczysz teraz z {list_Przeciwnik[0]}")
                 print(f"Przeciwnik ma {list_Przeciwnik[1]} Hp i zadaje ci {list_Przeciwnik[2]} obrażeń\n")
                 Bohater[2] = Bohater[2] - list_Przeciwnik[2]
@@ -303,14 +302,13 @@ Potrzebujesz 'Miecz' żeby użyć!""")
                             print("""Zadełeś 0 obrażeń.
 Nie możesz tego zrobić!
 Potrzebujesz 'Miecz' żeby użyć!""")
-                            print('!'*50)
                         if Miecz in Przedmioty:
                             list_Przeciwnik[1] = list_Przeciwnik[1] - Mocny_atak[0]
                             print('-'*50)
                             print(f"Zadałeś {Mocny_atak[0]} obrażeń")
                             print('-'*50)
-                    elif inp1 == '2':
-                        Wybierz_leczenie()
+                elif inp1 == '2':
+                    Wybierz_leczenie()
             if inp1 == 'stop':
                 break
             if list_Przeciwnik[1] <= 0:
@@ -330,12 +328,14 @@ Potrzebujesz 'Miecz' żeby użyć!""")
             Ubgrade()
     if Bohater[3] >= 2:
         print('^'*50)
-        inp_1 = input('Gratulecje, awansowałeś na kolejny poziom!!!')
+        inp_1 = input('''Gratulecje, awansowałeś na kolejny poziom!
+Przeciwnicy są teraz silniejsi!!!''')
         Bohater[4] += 1
         Bohater[3] -= Bohater[3]
 
 print("="*50)
-print("Przegrałeś !!!!!!!!")
+print("="*50)
+print("Umarłeś !!!!!!!!")
 print(f'Zabiłeś {liczba_pokonanych_przeciwników} przeciwników')
 print(f'Pokonałeś {liczba_pokonanych_bossów} Bossów')
 print(f"Osiągnąłęś {Bohater[4]} poziom")
