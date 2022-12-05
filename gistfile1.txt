@@ -220,7 +220,7 @@ while Bohater[2] >= 0:
     if inp == 'stop':
         break
     if inp == '1':
-        if Bohater[4]%5 == 0:
+        if Bohater[4] % 5 == 0:
             print('!'*50)
             print('Nadszedł czas na walkę z Bossem!')
             Boss()
