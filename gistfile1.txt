@@ -191,7 +191,7 @@ def Przeciwnik():
 def Boss_atak():
     return randint(7,24)
 def Boss_coiny():
-    return randint(30,100)
+    return randint(50,100)
 def Boss():
     global List_boss
     List_boss = ['Boss',60,Boss_atak(),Boss_coiny(),1]
