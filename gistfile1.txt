@@ -261,7 +261,6 @@ Potrzebujesz 'Miecz' żeby użyć!""")
                 break
             if List_boss[1] <= 0:
                 print('Brawo. Pokonałeś Bossa!!!!!!!!!!!!!!!!')
-                print('Przeciwnicy są teraz silniejsi!!!')
                 global inp_b
                 inp_b = input(f"Dostałeś {List_boss[3]} coinów i {List_boss[4]} Level")
                 Bohater[5] += List_boss[3]
