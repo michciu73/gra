@@ -183,9 +183,6 @@ def Przeciwnik_Pd():
 def Przeciwnik():
     global list_Przeciwnik
     list_Przeciwnik = [f"Przeciwnik poz.{liczba_pokonanych_bossów}",Przeciwnik_Hp,Przeciwnik_atak(),Przeciwnik_coiny(),Przeciwnik_Pd(),]
-    if liczba_pokonanych_bossów >= 1:
-        list_Przeciwnik[1] += Przeciwnik_Hp
-        list_Przeciwnik[2] += Przeciwnik_atak()
     return list_Przeciwnik
 
 def Boss_atak():
